@@ -3,8 +3,8 @@ preview-archive:
 
 update-gitattributes:
 	@git ls-files | grep -v shifter-unrecommended-plugins.php | xargs -I{} echo {} export-ignore > .gitattributes
-	cat .gitattributes
-	git diff
+	@cat .gitattributes
+	@git diff
 
 
 .PHONY: preview-archive update-gitattributes
