@@ -3,7 +3,7 @@
 Plugin Name: Shifter - Unrecommended Plugins
 Plugin URI: https://github.com/getshifter/shifter-unrecommended-plugins
 Description: Shifter unrecommended plugins
-Version: 0.1.0
+Version: 0.1.1
 Author: Shifter Team
 Author URI: https://getshifter.io
 License: GPLv2 or later
