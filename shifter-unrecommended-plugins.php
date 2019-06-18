@@ -104,7 +104,9 @@ class ShifterUnrecommendedPlugins
             ( $type === $status ) ? $current_class_string : '',
             sprintf($text, number_format_i18n($count))
         );
-        $wp_list_table->items = $unrecommended;
+        if ($this->chkStatus()) {
+            $wp_list_table->items = $unrecommended;
+        }
         return $status_links;
     }
 
