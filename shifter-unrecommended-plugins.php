@@ -3,7 +3,7 @@
 Plugin Name: Shifter - Unrecommended Plugins
 Plugin URI: https://github.com/getshifter/shifter-unrecommended-plugins
 Description: Shifter unrecommended plugins
-Version: 0.0.1
+Version: 0.1.0
 Author: Shifter Team
 Author URI: https://getshifter.io
 License: GPLv2 or later
@@ -91,7 +91,7 @@ class ShifterUnrecommendedPlugins
         if ($this->chkStatus()) {
             $status = self::UNRECOMMEND_STATUS;
             foreach ($status_links as $type => $text) {
-                $status_links[$type] = str_replace($current_class_string, '', $text); 
+                $status_links[$type] = str_replace($current_class_string, '', $text);
             }
         }
         $type = self::UNRECOMMEND_STATUS;
