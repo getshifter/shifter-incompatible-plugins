@@ -90,6 +90,7 @@ class ShifterUnrecommendedPlugins
             $unrecommended = $this->unrecommended();
             $status = self::UNRECOMMEND_STATUS;
 
+            $total_this_page = count($unrecommended)
             $page = $wp_list_table->get_pagenum();
             $plugins_per_page = $wp_list_table->get_items_per_page(str_replace( '-', '_', 'plugins_per_page' ), 999);
             $start = ($page - 1) * $plugins_per_page;
@@ -99,7 +100,7 @@ class ShifterUnrecommendedPlugins
             $wp_list_table->items = $unrecommended;
             $wp_list_table->set_pagination_args(
                 [
-                    'total_items' => count($unrecommended),
+                    'total_items' => $total_this_page,
                     'per_page'    => $plugins_per_page,
                 ]
             );
