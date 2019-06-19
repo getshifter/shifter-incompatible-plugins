@@ -3,7 +3,7 @@
 Plugin Name: Shifter - Unrecommended Plugins
 Plugin URI: https://github.com/getshifter/shifter-unrecommended-plugins
 Description: Shifter unrecommended plugins
-Version: 0.1.2
+Version: 0.1.3
 Author: Shifter Team
 Author URI: https://getshifter.io
 License: GPLv2 or later
@@ -13,15 +13,11 @@ if (!defined('ABSPATH')) {
     exit; // don't access directly
 };
 
-if (is_admin()) {
-    $unrecommended = ShifterUnrecommendedPlugins::get_instance();
-    add_action('admin_init', [$unrecommended, 'admin_init']);
-}
-
 class ShifterUnrecommendedPlugins
 {
     const UNRECOMMEND_STATUS = 'unrecommend';
     const UNRECOMMEND_PLUGIN_LIST_URL = 'https://download.getshifter.io/unrecomended-plugins.json';
+    const UNRECOMMEND_SUPPORT_URL = 'https://support.getshifter.io/articles/2833720-unrecommended-wordpress-plugins';
     static $instance;
 
     public function __construct()
@@ -83,6 +79,24 @@ class ShifterUnrecommendedPlugins
         return self::UNRECOMMEND_STATUS === $_REQUEST['plugin_status'];
     }
 
+    public function admin_notice__warning()
+    {
+        $class = 'notice notice-warning';
+        $message = sprintf(
+            __('What does unrecommended mean? <br> <a href="%s" target="_brank">Shifter - Unrecommended WordPress Plugins</a>'),
+            apply_filters('Shifter/unrecommendSupportURL', self::UNRECOMMEND_SUPPORT_URL)
+        );
+
+        printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), $message);
+    }
+
+    public function admin_notice()
+    {
+        if (count($this->unrecommended()) > 0) {
+            add_action('admin_notices', [$this, 'admin_notice__warning']);
+        }
+    }
+
     public function pre_current_active_plugins($all_plugins)
     {
         global $status, $wp_list_table;
@@ -92,9 +106,9 @@ class ShifterUnrecommendedPlugins
 
             $total_this_page = count($unrecommended);
             $page = $wp_list_table->get_pagenum();
-            $plugins_per_page = $wp_list_table->get_items_per_page(str_replace( '-', '_', 'plugins_per_page' ), 999);
-            $start = ($page - 1) * $plugins_per_page;
+            $plugins_per_page = $wp_list_table->get_items_per_page(str_replace('-', '_', 'plugins_per_page'), 999);
             if ($total_this_page > $plugins_per_page) {
+                $start = ($page - 1) * $plugins_per_page;
                 $unrecommended = array_slice($unrecommended, $start, $plugins_per_page);
             }
             $wp_list_table->items = $unrecommended;
@@ -147,9 +161,15 @@ class ShifterUnrecommendedPlugins
     public function admin_init()
     {
         if (count($this->unrecommended()) > 0) {
+            add_action('load-plugins.php', [$this, 'admin_notice']);
             add_action('pre_current_active_plugins', [$this, 'pre_current_active_plugins']);
             add_filter('views_plugins', [$this, 'views']);
             add_filter('wp_redirect', [$this, 'wp_redirect']);
         }
     }
+}
+
+if (is_admin()) {
+    $unrecommended = ShifterUnrecommendedPlugins::get_instance();
+    add_action('admin_init', [$unrecommended, 'admin_init']);
 }
