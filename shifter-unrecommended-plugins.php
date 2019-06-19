@@ -3,7 +3,7 @@
 Plugin Name: Shifter - Unrecommended Plugins
 Plugin URI: https://github.com/getshifter/shifter-unrecommended-plugins
 Description: Shifter unrecommended plugins
-Version: 0.0.2
+Version: 0.0.3
 Author: Shifter Team
 Author URI: https://getshifter.io
 License: GPLv2 or later
@@ -90,7 +90,7 @@ class ShifterUnrecommendedPlugins
             $unrecommended = $this->unrecommended();
             $status = self::UNRECOMMEND_STATUS;
 
-            $total_this_page = count($unrecommended)
+            $total_this_page = count($unrecommended);
             $page = $wp_list_table->get_pagenum();
             $plugins_per_page = $wp_list_table->get_items_per_page(str_replace( '-', '_', 'plugins_per_page' ), 999);
             $start = ($page - 1) * $plugins_per_page;
