@@ -2,4 +2,3 @@
 .gitignore export-ignore
 Makefile export-ignore
 create-json.php export-ignore
-unrecomended-plugins.json export-ignore
