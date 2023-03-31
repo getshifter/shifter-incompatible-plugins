@@ -86,7 +86,7 @@ class ShifterIncompatiblePlugins
 
     private function _chk_status()
     {
-        return self::STATUS === esc_html($_REQUEST['plugin_status']);
+        return isset($_REQUEST['plugin_status']) && self::STATUS === esc_html($_REQUEST['plugin_status']);
     }
 
     public function admin_notice__warning()
