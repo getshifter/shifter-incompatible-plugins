@@ -3,7 +3,7 @@
 Plugin Name: Shifter - Incompatible Plugins
 Plugin URI: https://github.com/getshifter/shifter-incompatible-plugins
 Description: Shifter incompatible plugins
-Version: 0.1.4
+Version: 0.2.1
 Author: Shifter Team
 Author URI: https://getshifter.io
 License: GPLv2 or later
